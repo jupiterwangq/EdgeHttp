@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'maven'
+
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+/*
+uploadArchives {
+    repositories{
+        mavenDeployer {
+
+            repository(url: "http://127.0.0.1:8081/repository/EdgeArmory/") {
+                authentication(userName: gradle.rootProject.properties.mavenUser, password: gradle.rootProject.properties.mavenPass)
+            }
+
+            pom.groupId = "edgecom.tech.http"
+            pom.artifactId = "EdgeHttp"
+            pom.version = "1.0.0"
+            pom.packaging = "aar"
+        }
+    }
+}*/
+
+publish {
+    artifactId = 'EdgeHttp'
+    userOrg = rootProject.userOrg
+    repoName = rootProject.repoName
+    groupId = rootProject.groupId
+    uploadName = rootProject.uploadName
+    publishVersion = rootProject.publishVersion
+    desc = rootProject.desc
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api 'com.squareup.okhttp3:okhttp:3.10.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    api 'com.squareup.retrofit2:retrofit:2.4.0'
+    api 'com.squareup.retrofit2:converter-gson:2.4.0'
+    api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
+}
